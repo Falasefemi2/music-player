@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Home, Search, Plus, ListMusic, Sun } from "lucide-react"
+import { Home, Search, Plus, ListMusic } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
+import { ModeToggle } from "./modeToggle"
 
 export function SidebarLeft({
   ...props
@@ -84,10 +85,7 @@ export function SidebarLeft({
         {/* Content for the sidebar can be added here */}
         <div className="flex-grow" />
         <div className="absolute bottom-4 right-4">
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Sun className="h-4 w-4" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
+          <ModeToggle />
         </div>
       </SidebarContent>
       <SidebarRail />
