@@ -83,6 +83,7 @@ export function SidebarLeft({
       </SidebarHeader>
       <SidebarContent className="relative flex flex-col">
         {/* Content for the sidebar can be added here */}
+
         <div className="flex-grow" />
         <div className="absolute bottom-4 right-4">
           <ModeToggle />

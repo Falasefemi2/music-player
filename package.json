@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
+    "migrate": "npx drizzle-kit generate",
+    "db-create": "npx drizzle-kit push",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.7.5",
+    "@clerk/themes": "^2.1.38",
+    "@neondatabase/serverless": "^0.10.1",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-collapsible": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -22,6 +26,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.35.3",
     "install": "^0.13.0",
     "lucide-react": "^0.453.0",
     "next": "^15.0.0-rc.1",
@@ -36,6 +42,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "drizzle-kit": "^0.26.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
     "postcss": "^8",
