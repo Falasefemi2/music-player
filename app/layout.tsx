@@ -6,7 +6,7 @@ import {
   ClerkProvider,
 } from '@clerk/nextjs'
 
-import { Header } from "@/components/Header"
+// import { Header } from "@/components/Header"
 import { SidebarLeft } from "@/components/sidebar-left"
 import { SidebarRight } from "@/components/sidebar-right"
 import { Separator } from "@/components/ui/separator"
@@ -15,6 +15,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import Header from "@/components/Header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,7 +39,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: 'hsl(0, 0%, 3.9%)', // change this value (you can get it from you're css variables, make sure to include 'hsl' and commas)
+        },
+      }}
+    >
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
