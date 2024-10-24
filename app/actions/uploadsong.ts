@@ -5,9 +5,10 @@
 import { z } from "zod";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "../db";
-import { songs } from "../db/schema";
+import { songs, users } from "../db/schema";
 
 import { UTApi, UTFile } from "uploadthing/server";
+import { eq } from "drizzle-orm";
 
 const utapi = new UTApi();
 
@@ -92,5 +93,38 @@ export async function uploadSongAction(formData: FormData) {
         failure: response[0]?.error || "Upload failed!", // Accessing error from the first element of the response array
       },
     };
+  }
+}
+
+export async function upsertUser(
+  email: string,
+  imageUrl: string,
+  username: string
+) {
+  try {
+    const existingUser = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1);
+
+    if (existingUser.length > 0) {
+      await db
+        .update(users)
+        .set({
+          image: imageUrl,
+        })
+        .where(eq(users.id, existingUser[0].id));
+    } else {
+      await db.insert(users).values({
+        email,
+        image: imageUrl,
+        createdAt: new Date(),
+        name: username,
+      });
+    }
+  } catch (error) {
+    console.error("Error upserting user:", error);
+    throw error;
   }
 }

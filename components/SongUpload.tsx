@@ -55,6 +55,7 @@ export function UploadSongForm() {
 
             // Call the uploadSongAction with the FormData
             const result = await uploadSongAction(formData); // Pass FormData directly
+            console.log({ result });
 
             // Handle the response
             if (result?.data?.success) {
