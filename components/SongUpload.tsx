@@ -41,39 +41,6 @@ export function UploadSongForm() {
         },
     });
 
-    // async function onSubmit(values: z.infer<typeof formSchema>) {
-    //     setIsUploading(true);
-    //     try {
-    //         // Upload the song file
-    //         const songUploadResult = await startUpload([values.songFile]);
-    //         const imageUploadResult = values.imageFile ? await startUpload([values.imageFile]) : null;
-
-    //         if (!songUploadResult) {
-    //             throw new Error("Song upload failed");
-    //         }
-
-    //         // Call the uploadSongAction with the uploaded file URLs
-    //         const result = await uploadSongAction({
-    //             title: values.title,
-    //             artist: values.artist,
-    //             songFile: songUploadResult[0].url, // Use the URL from the upload result
-    //             imageUrl: imageUploadResult ? imageUploadResult[0].url : undefined, // Optional
-    //             duration: 0, // Set duration as needed
-    //         });
-
-    //         if (result?.data?.success) { // Assuming the result structure
-    //             toast(result.data.success);
-    //             form.reset();
-    //         } else if (result?.data?.failure) {
-    //             toast(result.data.failure);
-    //         }
-    //     } catch (error) {
-    //         toast((error as Error).message); // Type assertion added here
-    //     } finally {
-    //         setIsUploading(false);
-    //     }
-    // }
-
     async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsUploading(true);
         try {
@@ -87,21 +54,14 @@ export function UploadSongForm() {
             }
 
             // Call the uploadSongAction with the FormData
-            const result = await uploadSongAction({
-                title: values.title,
-                artist: values.artist,
-                songFile: values.songFile,
-                imageUrl: values.imageFile ? URL.createObjectURL(values.imageFile) : undefined,
-                duration: 0, // Set duration as needed
-
-            });
+            const result = await uploadSongAction(formData); // Pass FormData directly
 
             // Handle the response
             if (result?.data?.success) {
                 toast(result.data.success);
                 form.reset();
             } else if (result?.data?.failure) {
-                toast(result.data.failure);
+                toast(result.data.failure as string);
             }
         } catch (error) {
             toast((error as Error).message); // Type assertion added here
